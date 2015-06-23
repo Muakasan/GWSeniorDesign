@@ -1,0 +1,49 @@
+body {
+	/*background-color: #0096D6;*/
+	background-color: #005A81;
+}
+
+h1 {
+	/*color: navy;*/
+	margin-left: 20px;
+	font-family: "Cambria";
+}
+
+h3 {
+	font-family: "Cambria";	
+}
+
+p {
+	font-family: "Cambria";
+}
+
+a:hover {
+    color: #2FB8F2;
+}
+
+a {
+    color: #CBB18B;
+    text-decoration: none;
+}
+
+#main_div {
+	/*
+	padding-top: 20px;
+	margin-left: 20px;
+	/*outline: black solid thick;*/
+	background-color: white;
+	/*padding: 20px;*/
+	border: 20px;
+		border-radius: 8px;
+}
+
+#inside_div{
+	margin: 20px;
+	/*margin-top: px;*/
+}
+
+#header_div{
+	/*margin-top: 0px;
+	background-color: white;*/
+	color: white;
+}
