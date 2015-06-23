@@ -33,17 +33,34 @@ a {
 	/*outline: black solid thick;*/
 	background-color: white;
 	/*padding: 20px;*/
-	border: 20px;
-		border-radius: 8px;
+	/*border: 20px;*/
+	border-radius: 8px;
 }
 
-#inside_div{
-	margin: 20px;
-	/*margin-top: px;*/
+#inside_div {
+	margin-left: 40px;
+	margin-right: 40px;
+	/*margin-top: 30px;*/
 }
 
-#header_div{
+#header_div {
 	/*margin-top: 0px;
 	background-color: white;*/
 	color: white;
+}
+
+#contet_div {
+	text-indent: 5px;
+}
+
+.header_div_2 h3 {
+	float: left;
+	
+}
+
+.header_div_2 img {
+	position: relative;
+	float: right;
+	/*top: 18px;*/
+	/*left: 10px;*/
 }
