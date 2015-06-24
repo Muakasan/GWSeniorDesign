@@ -1,10 +1,8 @@
 body {
-	/*background-color: #0096D6;*/
 	background-color: #005A81;
 }
 
 h1 {
-	/*color: navy;*/
 	margin-left: 20px;
 	font-family: "Cambria";
 }
@@ -27,30 +25,20 @@ a {
 }
 
 #main_div {
-	/*
-	padding-top: 20px;
-	margin-left: 20px;
-	/*outline: black solid thick;*/
 	background: white;
-	/*padding: 20px;*/
-	/*border: 20px;*/
 	border-radius: 8px;
 }
 
 #inside_div {
-	margin-left: 40px;
-	margin-right: 40px;
-	/*margin-top: 30px;*/
+	padding: 30px;
 }
 
 #header_div {
-	/*margin-top: 0px;
-	background-color: white;*/
 	color: white;
 }
 
-#contet_div {
-	text-indent: 5px;
+#content_div {
+	margin-left: 30px;
 }
 
 .header_div_2 h3 {
@@ -61,6 +49,4 @@ a {
 .header_div_2 img {
 	position: relative;
 	float: right;
-	/*top: 18px;*/
-	/*left: 10px;*/
 }
