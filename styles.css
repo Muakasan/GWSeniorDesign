@@ -43,7 +43,8 @@ a {
 
 .header_div_2 h3 {
 	float: left;
-	
+	width: 80%;
+	height: 50px;
 }
 
 .header_div_2 img {
