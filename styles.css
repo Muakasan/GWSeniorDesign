@@ -19,23 +19,27 @@ a:hover {
     color: #2FB8F2;
 }
 
-button {
+div.div_button {
+	text-align: center;
 	border-radius: 8px;
 	width: 100%;
-	height: 50px;
+	height: 80px;
 	margin-top: 5px;
 	background-color:  #10375A;
-	border: none;
-	color: #CBB18B;
+	/*border: none;*/
+	/*color: #CBB18B;*/
 	font-family: "Cambria";
+	color: #10375A;
 	font-weight: bold;
-	font-size: 30px;
+	font-size: 30px;	
 }
+
 
 #outer_div {
 	padding: 20px;
 	margin-right: 80px;
 	margin-left: 80px;
+	margin-bottom: 40px;
 	background: white;
 	border-radius: 8px;
 }
