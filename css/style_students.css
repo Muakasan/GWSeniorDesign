@@ -37,6 +37,9 @@ a {
 }
 
 #header_div {
+	font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+	font-size: 30px;
+	margin-left: 80px;
 	color: white;
 }
 

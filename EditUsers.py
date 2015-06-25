@@ -33,11 +33,9 @@ def main():
 		for j in i[1:]:
 			nameStng = j.replace(" ", "_")
 			studentDirectory = directory+nameStng
-			if not exists(studentDirectory):
-				makedirs(studentDirectory)
 			outfile = open(studentDirectory+"/"+nameStng+".html", "w+")
 			myTemplate = template.replace("student_name", j)
-			myTemplate = template.replace("my_year", str(i[0]))
+			myTemplate = myTemplate.replace("my_year", str(i[0]))
 			outfile.write(myTemplate)
 			outfile.close()
 main()
