@@ -13,18 +13,22 @@
 		<div id="outer_div">
 			<div id="middle_div">
 				<div class="subheader_div">
-					<h2>John Shannon: Enter the students' title here</h2>
+					<h2>John Shannon: Image Recognition Assisted Touring</h2>
 					<img src="profile_pic.jpg" alt width="150">
 				</div>
 				<div id="inside_div"> 
 					<p>
-						<strong>Title Here:</strong>
+						<strong>Cog:</strong> Cog utilizes the heads up display of Google Glass to improve the touring experience for museum goers. The user is provided with a live camera view on Glass and can snap a picture of a painting or other piece of art. This image is sent to the Cog server where it is compared with a store of already captured images of the art in the museum or gallery. When a match is found, tagged information about the piece is sent back to Glass where it is displayed overlaid on the user's picture. Communication between the client and server is handled with Restlet, a Java framework for building REST APIs.<br>
+
+						The image comparison is done using the jopensurf library, a java port of the OpenSURF library. The SURF algorithm finds points of interest in two images and finds matches between those images. The comparison process was sped up to improve the user experience and keep a user from waiting too long for information. One way the process was sped up is by calculating and storing the points of interest of the images stored on the server when the server is started. This keeps the server from having to recompute those points on each new comparison. The second way the process was sped up is by adding a pre-comparison with stored thumbnails of the images. The algorithm finds much fewer points of interest in images of reduced size and Cog uses this to its advantage by quickly throwing out images that are very different from the image from the user. The comparison of the full sized images is then done with the reduced list and a match is returned to the user.
 					</p>
 					<p>
-						<strong>Bio:</strong>
-						Enter Bio Text Here
+						<strong>Bio:</strong>My name is John (Jack) Shannon and I am a senior pursuing a BS degree in Computer Science at The George Washington University. I am interested in the Internet of Things, data, machine learning, wearables, and automation.<br><br>
+
+						<strong>Project Video: </strong>
 					</p>
 					<p>
+						<iframe width="560" height="315" src="https://www.youtube.com/embed/wT3mZN-kIFw" frameborder="0" allowfullscreen></iframe><br>
 						<strong>Documentation:</strong> 							
 						<ul>
 						</ul>
