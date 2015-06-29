@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<HTML>
+	<head>
+		<title>GW Senior CS Design Matthew Scaperoth</title>
+		<link rel="stylesheet" type="text/css" href="../../css/style_students.css">
+	</head>
+	<body>
+		<div id="header_div">
+			<p>
+			<a href="../../index.html">GW Senior CS Design</a> <a href="../2015.html">2015</a>
+			</p>
+		</div>
+		<div id="outer_div">
+			<div id="middle_div">
+				<div class="subheader_div">
+					<h2>Matt Scaperoth: Sensor Pack</h2>
+					<img src="profile_pic.jpg" alt width="150">
+				</div>
+				<div id="inside_div"> 
+					<p>
+						<strong>Building "Brains" for the Lynx Quadruped Robot</strong><br>
+						The landscape of robotics is changing. Unlike before, it's becoming more and more common to see affordable robotics on digital shelves on sites like Amazon and SparkFun. These robotic frames are usually the result of research or crowd funding, and they are, generally, highly capable mecahnical systems. On such robot at the George Washington University was created by Sam Zapolsky. It is an open-source-design quadruped robot called R. Links. Having all of these options for a physical design is great, but the problem is that there are not many all-in-one software packages available for these systems. My library, SensorPack, integrates two types of sensors, vision and orientation, into a single controller that is both easy to use and customizable.<br>
+
+						Out of the box, the SensorPack is designed for an Asus Xtion Pro and a MicroStrain GX4-25 IMU. The Xtion Pro is used to generate a point cloud that contains data that can be oriented into a global frame using the IMU. Once oriented, this data can be trimmed and made into a heightmap. The heightmap can be queried by the user so that a robot may know more about its surroundings. The heightmap can be used in a waypoint system, gait planner, path planner, etc. In order to properly orient the heightmap, an IMU is used to capture accelerometer and magnetometer data that can be used to generate a static global frame. The points from the point cloud are then transformed from their local frame into this global frame. By doing this, we can know the difference between looking down and looking forward, upside down and upright, left and right, etc.<br>
+
+						There are several reasons why we generate a heightmap instead of using the point cloud directly. A pointcloud is three dimensional and can be expensive to query directly since you need to query on all three axis. A heightmap, however, is only 2.5 dimensions, and is not only smaller to store, but it is much easier to work with algorithmically. For example, a point that doesn't exist implicitly on the heightmap can easily be interpolated using bilinear interpolation. Also, if we want to optimize the data structure, we can use a quad tree to break the heightmap into searchable quadrants. All of this is because of the 2.5 dimensional structure. We use the same points from the pointcloud to represent the heightmap, but we are projecting objects' heights onto an x-y plane. The height itself is localized at a specific x and y so that we don't need to query a z, it is the return value.<br>
+
+						The library is written in C++ and is designed to be simple to install. When combined with Sam Zapolsky's R. Links quadruped, we can accomplish some really interesting results in planning and prediction. Probably most importantly, though, is that the sensor data can be directly inserted into simulations. A live heightmap can be projected into a simulation environment where actuation can be tested using real data and real sensors allowing researchers to make more accurate predictions before moving to physical testing. This can be a big step forward for simulation.
+					</p>
+					<p>
+						<strong>Bio:</strong>My name is Matthew Scaperoth, and one of my primary interests is in robotics and real-world or real-time applications of various technologies. I have an associates degree in computer programming from Pellissippi State Community College in east Tennessee. Since receiving my associates I have worked in a couple of different places. My current and longest employment is here at the George Washington University where I work as a programmer analyst. My job allows for me to constantly learn and experiment on new technologies.
+
+						You can learn more about this project at <a href="scaperoth.com">scaperoth.com</a>.
+
+
+						
+					</p>
+					<p>
+						<strong>Documentation:</strong><br>
+						<video width="320" height="240" controls>
+							<source src="presentation.mp4" type="video/mp4">
+							Your browser does not support the video tag.
+						</video> 	 							
+						<ul>
+							<li><a href="100percpres_4.pptx" target='_blank' >100percpres_4.pptx</a></li>
+							<li><a href="hw2_mscapero_specificatoins.pdf" target='_blank' >hw2_mscapero_specificatoins.pdf</a></li>
+							<li><a href="mscaperofunctionalspec.docx" target='_blank' >mscaperofunctionalspec.docx</a></li>
+							<li><a href="mscaperofunctionalspec.pdf" target='_blank' >mscaperofunctionalspec.pdf</a></li>
+							<li><a href="mscapero_sd_hw3_2014.pdf" target='_blank' >mscapero_sd_hw3_2014.pdf</a></li>
+							<li><a href="mscapero_wr3_sd_businessprop_final.pdf" target='_blank' >mscapero_wr3_sd_businessprop_final.pdf</a></li>
+							<li><a href="open_source_software_to_work_with_the_links_quadruped.docx" target='_blank' >open_source_software_to_work_with_the_links_quadruped.docx</a></li>
+							<li><a href="open_source_software_to_work_with_the_links_quadruped.pdf" target='_blank' >open_source_software_to_work_with_the_links_quadruped.pdf</a></li>
+
+						</ul>
+					</p>
+				</div>
+			</div>
+		</div>
+	<body>
+</HTML>
