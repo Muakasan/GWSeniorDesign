@@ -1,0 +1,17 @@
+====== Luther B Smith IV: Quadrotor User Inventory ChecKer (QUICK) ======
+{{ :luke:me4.jpg?200|}}
+
+**QUICK** is quadrotor helicopter based drone used for inventorying in warehouses.  The device recognizes, reads, and records information found on labels and operates autonomously to help marginalize human error. 
+
+**Bio:** your bio goes here.
+
+
+**Project Video:**
+<HTML>
+<iframe width="420" height="315" src="//www.youtube.com/embed/S31QINLX5DA" frameborder="0" allowfullscreen></iframe>
+</HTML>
+
+**Documentation:**
+  * Post each homework assignment here
+  * etc
+  * etc

@@ -1,0 +1,44 @@
+====== Thomas A. Ballas: Sirius ======
+{{ :tim:michelle.jpg?nolink&200|}}
+
+**Sirius** is a steganography-enabled broadcasting agent.
+
+**Bio:** <HTML> <p>I am Thomas Aslan Ballas, an undergraduate computer science student of the George Washington University.  
+I was born and spent the first 18 years of my life in Los Angeles, CA.  In 2010, I moved to DC and now reside in Arlington.  
+Outside of my classes, I enjoy running, reading articles on Reddit, and learning new things.  
+When I can, usually a few times each year, I enjoy scuba diving and recently went on my first wreck dive.  
+<br><br>
+My professional interests lie in the field of cybersecurity and information assurance.  
+To this end, I was awarded and am now a student of the NSF Scholarship for Service: CyberCorps.  
+In accordance with its guidelines, this summer, I worked at the Dept. of Health and Human Services on an IT Security team.  
+My senior design project is related to my professional interests, specifically, steganography.</p>
+</HTML>
+
+
+**Project Video:**
+<HTML>
+<iframe width="420" height="315" src="//www.youtube.com/embed/S31QINLX5DA" frameborder="0" allowfullscreen></iframe>
+</HTML>
+
+**Documentation:**
+<HTML>
+<a href='https://www.youtube.com/watch?v=S861A7eFVls'>Sirius: 40% Operational - Demonstration Video</a> 
+<br>
+<a href='https://www.youtube.com/watch?v=OCvjrZZvONw'>Sirius: 30% Operational - Demonstration Video</a> 
+<br>
+<a href='./taballas-writing-4.docx'>Writing-4 (doc)</a> <a href='./taballas-writing-4.pdf'>(pdf)</a>
+<br>
+<a href='./taballas-writing-3.docx'>Writing-3 (doc)</a> <a href='./taballas-writing-3.pdf'>(pdf)</a>
+<br>
+<a href='./taballas_HW6.pdf'>Homework-6</a>
+<br>
+<a href='./taballas-homework-5.pdf'>Homework-5</a>  <a href='./taballas-homework-5-workflow.pdf'>Android Workflow</a>
+<br>
+<a href='./taballas-writing-2.docx'>Writing-2 (doc)</a> <a href='./taballas-writing-2.pdf'>(pdf)</a>
+<br>
+<a href='http://www.youtube.com/watch?v=ZndccgS1YnA'>Presentation-1 (screencast)</a> <a href='./taballas-presentation-1.pdf'>(slide deck)</a>
+<br>
+<a href='./taballas-writing-1.docx'>Writing-1 (doc)</a> <a href='./taballas-writing-1.pdf'>(pdf)</a>
+<br>
+<a href='https://www.youtube.com/watch?v=R_UKqCYzpq8'> Homework 3 </a><br><br>
+</HTML>

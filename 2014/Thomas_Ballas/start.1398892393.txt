@@ -1,0 +1,36 @@
+====== Thomas A. Ballas: Sirius ======
+{{ :tom:cropped001b.jpg?nolink&200|}}
+
+**Sirius** is a steganography-enabled broadcasting agent.
+
+**Bio:** <HTML> <p>I am Thomas Aslan Ballas, an undergraduate computer science student of the George Washington University.  
+I was born and spent the first 18 years of my life in Los Angeles, CA.  In 2010, I moved to DC and now reside in Arlington.  
+Outside of my classes, I enjoy running, reading articles on Reddit, and learning new things.  
+When I can, usually a few times each year, I enjoy scuba diving and recently went on my first wreck dive.  
+<br><br>
+My professional interests lie in the field of cybersecurity and information assurance.  
+To this end, I was awarded and am now a student of the NSF Scholarship for Service: CyberCorps.  
+In accordance with its guidelines, this summer, I worked at the Dept. of Health and Human Services on an IT Security team.  
+My senior design project is related to my professional interests, specifically, steganography.</p>
+</HTML>
+
+
+**Project Video:**
+<HTML>
+<iframe width="560" height="315" src="//www.youtube.com/embed/n9XaP1I0Gu8" frameborder="0" allowfullscreen></iframe>
+</HTML>
+
+**Documentation:**
+  *{{:tom:siriusposter.pdf|Poster}}
+  *<HTML><a href='https://www.youtube.com/watch?v=S861A7eFVls'>Sirius: 40% Operational - Demonstration Video</a></HTML>
+  *<HTML><a href='https://www.youtube.com/watch?v=OCvjrZZvONw'>Sirius: 30% Operational - Demonstration Video</a></HTML>
+  *{{:tom:taballas-writing-4.pdf|Writing-4}}
+  *{{:tom:taballas-writing-3.pdf|Writing-3}}
+  *{{:tom:taballas_hw6.pdf|Homework-6}}
+  *{{:tom:taballas-homework-5.pdf|Homework-5}} 
+  *{{:tom:taballas-homework-5-workflow.pdf|Homework-5 Workflow Diagram}}
+  *{{:tom:taballas-writing-2.pdf|Writing-2}}
+  *<HTML><a href='http://www.youtube.com/watch?v=ZndccgS1YnA'>Presentation-1 (screencast)</a></HTML> 
+  *{{:tom:taballas-presentation-1.pdf|Presentation 1 (slide deck)}}
+  *{{:tom:taballas-writing-1.pdf|Writing-1}}
+  *<HTML><a href='https://www.youtube.com/watch?v=R_UKqCYzpq8'> Homework 3 </a></HTML>

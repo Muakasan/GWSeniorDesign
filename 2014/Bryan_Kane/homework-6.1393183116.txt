@@ -1,0 +1,13 @@
+== Coding plan: ==
+
+**Source code:** Java / Scala (Play Framework, Stanford NLP Parser)
+
+**File naming conventions / coding style:** Follow Scala conventions / Java conventions (depending on the language used), and any additional Play Framework conventions (MVC, templates, etc.)
+
+**Code check in:** Only commit when something actually works. Ideally, only commit when all tests pass / all new code has tests, but realistically, will probably commit whenever new feature is built / ready to be shared. Master branch will only be for fully working code. Will follow GitHub's (the company, not the platform) branching model / using Pull-Requests to merge in new features. Allows development of multiple features simultaneously.
+
+**Logging:** Default PlayFramework logging / SLF4J package. Possibly investigate using SumoLogic / other hosted logging capture website to manage logs / receive alerts on errors.
+
+**Test plan:** Each individual component should have proper unit tests. All non-relevant aspects will be mocked out (using Mockito), and with dependency injection (Google Guice), will be included in each file accordingly.
+
+For NLP type tests, there will probably be some manual tests run, and the results saved, and tests will simply match up the output to the expected output.

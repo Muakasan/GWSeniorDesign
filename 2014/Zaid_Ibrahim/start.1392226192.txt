@@ -1,0 +1,17 @@
+====== Zaid Ibrahim: Theia ======
+{{ :zaid:zaid1.jpg?nolink&200|}}
+
+**Theia:** Theia is a 3D rendering application used to create a virtual model of a room by taking pictures of each corner of the room.
+
+**Bio:** My name is Zaid Ibrahim and I am a Senior studying Computer Science with a concentration in Graphic design and  Visual media. After college I hope to go into the animation industry and create characters and environments. Throughout my time here I have gained a growing love for computer science and with my Senior Design project I hope to merge my artistic interests with my technical interests.
+
+
+**Project Video:**
+<HTML>
+<iframe id="theiaVid" style="width:420px; height:315px;" src="//www.youtube.com/embed/Ri-mq2gFzh0" frameborder="0"></iframe>
+</HTML>
+
+**Documentation:**
+  * Post each homework assignment here
+  * etc
+  * etc
