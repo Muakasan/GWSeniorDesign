@@ -1,0 +1,385 @@
+#!/bin/sh 
+# Copyright 2008-2015, LastPass, LastPass.com
+# ALL RIGHTS RESERVED
+
+PACKAGE_PATH=$1
+INSTALL_PATH=$2
+INSTALL_VOLUME=$3
+EXTRA_PARAMS=$4
+
+
+# We now allow users to opt out of certain browsers
+# accept them as additional params
+CMD_SAFARI=CMD_CHROME=CMD_FIREFOX=CMD_OPERA=1
+
+if [ $# -gt 4 ]; then
+  #echo "Overriding skip saf";
+  CMD_SAFARI=$5
+fi
+if [ $# -gt 5 ]; then
+  CMD_CHROME=$6
+fi
+if [ $# -gt 6 ]; then
+  CMD_FIREFOX=$7
+echo "CMD FF IS $CMD_FIREFOX";
+fi
+if [ $# -gt 7 ]; then
+  CMD_OPERA=$8
+fi
+
+# next line will be changed by make_release.sh
+VERBOSE=1
+
+
+function verbose_log
+{
+  if [ "$VERBOSE" -eq 1 ]; then
+    echo "$1" >> /tmp/lpinstallstatus
+  fi
+}
+
+verbose_log "Params: $*"
+
+
+RESOURCES="${INSTALL_PATH}/LastPass.bundle/Contents/Resources"
+
+# If not there, try current dir
+if [ ! -d $RESOURCES ]; then
+  RESOURCES=`dirname "$0"`
+fi
+
+
+SAFARI5=0
+if [ -f /Applications/Safari.app/Contents/version.plist ]
+then
+  grep -A 1 CFBundleShortVersionString /Applications/Safari.app/Contents/version.plist | egrep "<string>([5-9]\.|[1-9][0-9]+\.)" > /dev/null
+  if [ $? = 0 ]
+  then
+    SAFARI5=1
+  fi
+fi
+
+DOOPERA=1
+DOBINARY=1
+DOPOLICIES=1
+
+CHROMESTOREINSTALL=1
+KILLSAFARI=1
+
+# sometimes the permissions are wrong -- no clue why
+chmod -R 755 "${INSTALL_PATH}/LastPass.bundle";
+
+( /usr/bin/killall "SIMBL Agent" )
+
+# The quotes below are terribly important since spaces are involved.
+# The path is typically. /Library/Application\ Support/SIMBL/Plugins/LastPass.bundle/Contents/Resources/SIMBL-0.9.9.pkg 
+if [ "$SAFARI5" = "0" ]; then 
+  sw_vers -productVersion | egrep "^10.5."  > /dev/null
+  if [ $? = 0 ]; then # 10.5 if we do 10.4 it'll use this too
+    # use the original SIMBL, the new one sucks in 10.5
+    if [ -f "$RESOURCES/SIMBL.pkg" ]; then 
+      /usr/sbin/installer -pkg "$RESOURCES/SIMBL.pkg" -target /
+    fi
+  else
+    if [ -f "$RESOURCES/SIMBL-0.9.9.pkg" ]; then 
+      /usr/sbin/installer -pkg "$RESOURCES/SIMBL-0.9.9.pkg" -target /
+    fi
+  fi 
+fi
+
+if [ -f "$RESOURCES/lp.xpi" ]
+then
+  ( /usr/bin/killall firefox-bin || exit 0 )
+  ( /usr/bin/killall firefox || exit 0 )
+fi
+if [[ "$CMD_CHROME" == "1"  ]]
+then
+  ( /usr/bin/killall "Google Chrome" || exit 0 )
+  ( /usr/bin/killall "Google Chrome Helper" || exit 0 )
+fi
+/bin/sleep 1
+if [ -s "$RESOURCES/lp.xpi" ]
+then
+  ( /usr/bin/killall -9 firefox-bin || exit 0 )
+fi
+if [[ "$CMD_CHROME" == "1" ]]
+then
+  ( /usr/bin/killall -9 "Google Chrome" || exit 0 )
+  ( /usr/bin/killall -9 "Google Chrome Helper" || exit 0 )
+fi
+
+verbose_log "checking for firefox extension"
+
+
+###################################
+# Firefox
+
+if [[ -f "$RESOURCES/lp.xpi" && "$CMD_FIREFOX" == "1" ]]
+then
+  verbose_log "firefox extension present, installing"
+  verbose_log "home dir is $HOME"
+
+  HOMEDIRS="$HOME"
+  for i in /Users/*
+  do
+    if [ "$i" != "$HOME" ]
+    then
+      verbose_log "found additional home dir at $i"
+      HOMEDIRS="$HOMEDIRS $i"
+    fi
+  done
+  verbose_log "home dirs are $HOMEDIRS"
+  for HOMEDIR in $HOMEDIRS
+  do
+    verbose_log "installing into $HOMEDIRS"
+    if [ -d "$HOMEDIR/Library/Application Support/Firefox/Profiles" ]
+    then
+      verbose_log "firefox profiles dir exists"
+      for i in "$HOMEDIR"/Library/Application\ Support/Firefox/Profiles/*
+      do
+        verbose_log "found firefox profile at $i"
+        if [ ! -d "$i/extensions" ]
+        then
+          mkdir -p "$i/extensions"
+          chown "`ls -ld "$i" | awk '{print $3; }'`" "$i/extensions"
+        fi
+        mkdir -p "$i/extensions/support@lastpass.com"
+        #if [ -d "$i/extensions/support@lastpass.com" ]
+        #then
+          #echo "directory created successfully" >> /tmp/lpinstallstatus
+        #fi
+        unzip -o "$RESOURCES/lp.xpi" -d "$i/extensions/support@lastpass.com"
+        chown -R "`ls -ld "$i" | awk '{print $3; }'`" "$i/extensions/support@lastpass.com"
+
+        // disable firefox password manager
+        if [ -f "$i/prefs.js" ]
+        then
+          egrep "user_pref\(\"signon.rememberSignons\"," "$i/prefs.js" > /dev/null
+          if [ $? = 1 ]
+          then
+            echo "user_pref(\"signon.rememberSignons\", false);" >> "$i/prefs.js"
+          fi
+        fi
+      done
+    fi
+    if [ -d "$HOMEDIR/Library/Application Support/Google/Chrome/Default/Extensions/hdokiejnpimakedhajhdlcegeplioahd" ]
+    then
+
+      verbose_log "Found Chrome extension, LASTPASS_ALREADY_INSTALLED"
+    fi
+  done
+fi
+
+verbose_log "after Firefox."
+
+
+rm -rf /tmp/lptemp
+
+###################################
+# Chrome
+
+if [[ "$CMD_CHROME" == "1" ]]
+then
+
+  verbose_log "Doing chrome policies"
+
+  if [ "$DOPOLICIES" = "1" ]
+  then
+    for i in `/usr/bin/users`
+    do
+      if [ ! -f "/Library/Managed Preferences/$i/com.google.Chrome.plist" ]
+      then
+        mkdir -p /Library/Managed\ Preferences/$i/
+        echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?><!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\"><plist version=\"1.0\"><dict><key>ExtensionInstallSources</key><array><string>https://lastpass.com/*</string><string>https://*.lastpass.com/*</string><string>http://*.lastpass.com/*</string><string>https://*.cloudfront.net/lastpass/*</string></array></dict></plist>" > /Library/Managed\ Preferences/$i/com.google.Chrome.plist
+      fi
+      if [ ! -f "/Library/Managed Preferences/$i/org.chromium.Chromium.plist" ]
+      then
+        mkdir -p /Library/Managed\ Preferences/$i/
+        echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?><!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\"><plist version=\"1.0\"><dict><key>ExtensionInstallSources</key><array><string>https://lastpass.com/*</string><string>https://*.lastpass.com/*</string><string>http://*.lastpass.com/*</string><string>https://*.cloudfront.net/lastpass/*</string></array></dict></plist>" > /Library/Managed\ Preferences/$i/org.chromium.Chromium.plist
+      fi
+    done
+  fi
+
+
+  verbose_log "Chrome setting up native messaging."
+
+
+  mkdir -p /Library/Google/Chrome/NativeMessagingHosts/
+  rm -rf /Library/Google/Chrome/NativeMessagingHosts/nplastpass.app/
+  unzip -d /Library/Google/Chrome/NativeMessagingHosts/ "$RESOURCES/nplastpass.app.zip"
+  echo "{ \"name\": \"com.lastpass.nplastpass\", \"description\": \"LastPass\", \"path\": \"/Library/Google/Chrome/NativeMessagingHosts/nplastpass.app/Contents/MacOS/nplastpass\", \"type\": \"stdio\", \"allowed_origins\": [ \"chrome-extension://hdokiejnpimakedhajhdlcegeplioahd/\", \"chrome-extension://debgaelkhoipmbjnhpoblmbacnmmgbeg/\", \"chrome-extension://hnjalnkldgigidggphhmacmimbdlafdo/\", \"chrome-extension://hgnkdfamjgnljokmokheijphenjjhkjc/\" ] }" > /Library/Google/Chrome/NativeMessagingHosts/com.lastpass.nplastpass.json
+
+  mkdir -p /Library/Application\ Support/Chromium/NativeMessagingHosts/
+  rm -rf /Library/Application\ Support/Chromium/NativeMessagingHosts/nplastpass.app/
+  unzip -d /Library/Application\ Support/Chromium/NativeMessagingHosts/ "$RESOURCES/nplastpass.app.zip"
+  echo "{ \"name\": \"com.lastpass.nplastpass\", \"description\": \"LastPass\", \"path\": \"/Library/Application Support/Chromium/NativeMessagingHosts/nplastpass.app/Contents/MacOS/nplastpass\", \"type\": \"stdio\", \"allowed_origins\": [ \"chrome-extension://hdokiejnpimakedhajhdlcegeplioahd/\", \"chrome-extension://debgaelkhoipmbjnhpoblmbacnmmgbeg/\", \"chrome-extension://hnjalnkldgigidggphhmacmimbdlafdo/\", \"chrome-extension://hgnkdfamjgnljokmokheijphenjjhkjc/\" ] }" > /Library/Application\ Support/Chromium/NativeMessagingHosts/com.lastpass.nplastpass.json
+
+  if [ "$DOBINARY" = "1" ]
+  then
+    mkdir -p /tmp/lptemp
+    unzip -d /tmp/lptemp "$RESOURCES/lpchrome.crx"
+  fi
+fi
+
+
+if [ -f "$RESOURCES/nplastpass.zip" ]
+then
+  if [ "$DOBINARY" = "1" ]
+  then
+    mkdir -p /tmp/lptemp
+    unzip -d /tmp/lptemp "$RESOURCES/nplastpass.zip"
+  fi
+fi
+
+
+verbose_log "Checking Chrome."
+
+if [[ "$CMD_CHROME" == "1" ]]
+then
+
+  verbose_log "Chrome browser installed."
+
+  if [[ ! -d "/Library/Application Support/Google/Chrome/External Extensions" ]]
+  then
+    verbose_log "Creating Extensions directory."
+    mkdir -p "/Library/Application Support/Google/Chrome/External Extensions"
+  fi
+
+  verbose_log "Installing Chrome Json file."
+
+  echo "{ \"external_update_url\": \"http://clients2.google.com/service/update2/crx\" }" > "/Library/Application Support/Google/Chrome/External Extensions/hdokiejnpimakedhajhdlcegeplioahd.json"
+
+fi
+
+
+
+# Install the safari binary component. We should remove this soon in favor of helper app.
+if [ "$DOBINARY" = "1" ]
+then
+  if [ -d "/tmp/lptemp" ]
+  then
+    rm -rf /Library/Internet\ Plug-Ins/nplastpass.plugin
+    cp -r /tmp/lptemp/nplastpass.bundle /Library/Internet\ Plug-Ins/nplastpass.plugin
+    chmod 755 /Library/Internet\ Plug-Ins/nplastpass.plugin/Contents/Resources/*.app/Contents/MacOS/*
+    rm -rf /tmp/lptemp
+  fi
+fi
+
+
+
+if [ "$DOBINARY" = "1" ]
+then
+  if [ -f "$RESOURCES/LastPassHelper.zip" ]
+  then
+    verbose_log "Installing Helper App"
+    sudo -u "$USER" mkdir -p "/Users/${USER}/Library/Application Support/LastPass/"
+    rm -rf ~/Library/Application\ Support/LastPass/LastPassHelper.app
+    sudo -u "$USER" unzip "$RESOURCES/LastPassHelper.zip" -d  ~/Library/Application\ Support/LastPass
+
+    # Register
+    verbose_log "Registering Helper App"
+    if [ -f "$RESOURCES/com.lastpass.LastPassHelper.plist" ]
+    then
+      verbose_log "Helper App plist found"
+      sed -i '' "s|REPLACE_HOME|${HOME}|" "$RESOURCES/com.lastpass.LastPassHelper.plist"
+      cp "$RESOURCES/com.lastpass.LastPassHelper.plist" ~/Library/LaunchAgents/
+      sudo -u "$USER" launchctl unload ~/Library/LaunchAgents/com.lastpass.LastPassHelper.plist > /dev/null
+      sudo -u "$USER" launchctl load ~/Library/LaunchAgents/com.lastpass.LastPassHelper.plist
+    else 
+      verbose_log "plist NOT found"
+    fi
+  fi
+fi
+
+# If we have old firefoxes trying to write to this directory, 
+# they will spin during the login attempt if suid file can't be written.
+chown $USER ~/Library/Application\ Support/LastPass
+
+if [ -f "$RESOURCES/lpvt_standalone.zip" ]
+then
+  rm -rf ~/Library/Application\ Support/LastPass/LastPass.app
+  sudo -u "$USER" unzip "$RESOURCES/lpvt_standalone.zip" -d  ~/Library/Application\ Support/LastPass
+fi
+
+for i in `/usr/bin/users`
+do
+  // disable safari password manager
+  sudo -u "$i" /usr/bin/defaults write ~/Library/Preferences/com.apple.Safari AutoFillPasswords -bool false
+
+  // disable chrome password manager
+  sudo -Hu "$i" "$RESOURCES/chrome_json" disablepwmgr
+
+  sudo -u "$i" mkdir -p "/Users/$i/Library/Application Support/LastPass/"
+  if [ -f "$RESOURCES/lp.xpi" ]
+  then
+    sudo -u "$i" echo "$EXTRA_PARAMS" > "/Users/$i/Library/Application Support/LastPass/extra_firefox_params"
+    chown "$i" "/Users/$i/Library/Application Support/LastPass/extra_firefox_params"
+  fi
+done
+
+# The exit 0 prevents this from failing the install as the last thing run... Hopefully this should do nothing because we killed in preflight
+( /usr/bin/killall Camino || exit 0 ) 
+if [ "$KILLSAFARI" = "1" ]; then 
+  ( /usr/bin/killall Safari || exit 0 ) 
+fi
+
+###################################
+# Opera
+
+verbose_log "Checking Opera."
+
+if [[ "$DOOPERA" = "1" && "$CMD_OPERA" == "1" ]]
+then 
+
+  verbose_log "Installing Opera."
+
+  if [ -d /Applications/Opera.app ]
+  then
+    for i in `/usr/bin/users`; do
+      sudo -u "$i" /usr/bin/open -a /Applications/Opera.app https://lastpass.com/dl/
+    done
+  fi
+fi
+
+
+
+
+###################################
+# Safari
+
+verbose_log "Checking Safari."
+
+rm -rf "/Library/Application Support/LastPass"
+if [[ "$SAFARI5" = "1" && "$CMD_SAFARI" == "1" ]]
+then
+
+  verbose_log "Installing Safari."
+
+  rm -f "$RESOURCES/../MacOS/LastPass"
+  rm -rf /tmp/lpinstallsafari
+  mkdir -p /tmp/lpinstallsafari
+  if [ ! -f "$RESOURCES/lastpass.safariextz" -a -f "$RESOURCES/lastpass_safariextz" ]
+  then
+    mv -f "$RESOURCES/lastpass_safariextz" "$RESOURCES/lastpass.safariextz"
+  fi
+  if [ -f "$RESOURCES/lastpass.safariextz" -a -f "$RESOURCES/install_lp.html" ]; then
+     for i in `/usr/bin/users`; do
+        /bin/cp "$RESOURCES/lastpass.safariextz" /tmp/lpinstallsafari/
+        chown "$i" "/tmp/lpinstallsafari/lastpass.safariextz" 
+        /bin/cp "$RESOURCES/install_lp.html" /tmp/lpinstallsafari/
+        chown "$i" "/tmp/lpinstallsafari/install_lp.html"
+        chown "$i" "/tmp/lpinstallsafari/"
+        ( sudo -u "$i" /usr/bin/open -a /Applications/Safari.app )
+        sleep 5
+        ( sudo -u "$i" /usr/bin/open -a /Applications/Safari.app /tmp/lpinstallsafari/lastpass.safariextz || exit 0 )
+     done
+  fi
+  mv -f "${INSTALL_PATH}/LastPass.bundle" "/Library/Application Support/LastPass"
+else
+  cp -rf "${INSTALL_PATH}/LastPass.bundle" "/Library/Application Support/LastPass"
+  #( open -a /Applications/Safari.app -n http://lastpass.com/upgrade.php?safari_installed || exit 0 ) 
+fi 
+
+
+verbose_log "Done"
+exit 0;

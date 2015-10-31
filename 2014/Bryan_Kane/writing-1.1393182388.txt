@@ -1,0 +1,41 @@
+== Functional Overview ==
+
+EasyRead is a system designed to adjust the reading level of a piece of text based on the targeted audience. Given a block of text (i.e. a news article, blog post, or short story) and a desired reading level, EasyRead can identify difficult passages and offer tips and suggested replacements to simplify the material.
+
+Additionally, EasyRead will offer a platform for users to submit their edits to a central repository, for other people to use and rate. This crowdsourcing facet will not only provide additional material for users, but allow for automatic training of the EasyRead system, which will lead to better results in the future.
+
+This system is critically important in many elementary school environments or for adult learners who are learning how to read. In education environments, there is a huge demand for relevant, but simplified content. For an elementary school student, reading an article in the New York Times is extremely difficult and will just lead to frustration due to the writing style of the article. However, reading the same antiquated passages from a textbook or journal becomes boring and uninteresting.
+
+Currently, many teachers will either use these uninteresting texts, or painstakingly modify current news articles into a simpler version for classroom use. However, it is difficult for instructors to find all of the ways that content can be simplified without losing any context or critical information. By turning the simplification of text into an easy and quick task, instructors will be able to use much more relevant material, increasing student engagement and willingness to read while concurrently teaching and discussing current events / other interesting information.
+
+In order to accomplish such tasks, EasyRead will require a lot of technologically challenging implementations.  The first aspect of the system, which identifies and helps correct passages, will make use of natural-language processing. Natural-language processing, or NLP, helps analyze written natural languages (such as English). One common approach to analyzing language is to use language parsers to categorize works in sentences and phrases by their parts of speech.
+
+Through the use of the Natural Language Toolkit (NLTK), a popular platform that allows for advanced NLP techniques, EasyRead will be able to analyze any english-language document. With an implementation of NLTK functions, EasyRead will identify difficult words and known trouble-phrases, and suggest possible alternatives. In the english language, there are common patterns of parts-of-speech, and the ordering of the parts-of-speech in a phrase can be used to determine the difficulty level (relative to other orderings).
+
+In addition to the tool that will assist users with the simplification of a document, the perhaps more technologically-challenging aspect of the tool will be the crowd-based machine-learning implementation. To put it simply, as more and more users submit their simplifications of text, the system will be able to analyze the changes and determine common patterns used for text simplification. By determining what sentences are rephrased, added, or removed, EasyRead will be able to come up with patterns of difficult or easy passages, and provide better recommendations for changes.
+
+== Core Requirements ==
+
+  * EasyRead must have the capability to identify of difficult words based on a given reading level.
+    * Through a large mapping of 10,000s of words to difficulty levels, specific words will be able to be targetted for replacement.
+  * Additionally, the system must be able to identify phrases that are worded in a difficult manner.
+    * Suggestions should be presented to the user that could rephrase a sentence in an easier to understand manner.
+    * There should also be context associated with these suggestions, explaining what makes the current phrasing difficult to read.
+  * After a user submits their changes to a piece of text, the EasyRead system should analyze the changes that are made.
+    * Through a comparison of the original text to the modified text, the system will determine which areas were modified, and the types of changes that were made.
+    * For example, if a sentence included 3 adjectives of medium difficulty, and was altered to include only 2 easy-to-understand adjectives, that pattern should be stored. If it is a commonly seen pattern across multiple pieces of text, it should start to be suggested for new text that comes in. 
+
+== List of Functions ==
+
+  * Perhaps the most important aspect of EasyRead will be the crowd-sourced repository of simplified content.
+    * Not only will this make it easier for users to find pre-simplified content for use, but will provide a vast range of data available for analysis.
+    * Through supervised machine learning, given the simplified content (along with its original, unsimplified version), EasyRead will be able to analyze the specific changes that are made in sentence structure, word choice, and style, which will allow for greater simplification suggestions for future users.
+  * In order to generate the repository of simplified content, EasyRead must provide an easy-to-use interface for generating the simplified content.
+    * The web-based interface will allow users to upload text content to be analyzed.
+    * Problem-areas should be identified on the screen, along with an explanation of what makes the text difficult, and possible ways to simplify the content.
+  * Of a much lower priority is the integration of the service with third-party sources, such as CNN, Reuters, Google News, popular blogs, and other sources of relevant, but sometimes difficult-to-read, content.
+    * These sources will be consumed through public third-party APIs.
+
+== Data Structures ==
+
+While it is still too early in the design process to determine exactly what data structures will be required, general ideas and estimations are able to be made. The web-based system that interacts with users will require a database (likely MySQL), and a web server with some temporary storage necessary. All of the documents, and data that is parsed from each document, will live in this server. In order to perform the advanced machine-learning computation necessary, that will exist as another service. Documents, once they are submitted to the server, will be placed on a queue to be processed and analyzed.

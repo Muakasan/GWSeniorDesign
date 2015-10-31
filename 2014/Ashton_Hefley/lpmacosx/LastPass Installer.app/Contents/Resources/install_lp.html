@@ -1,0 +1,26 @@
+<html>
+<head>
+<title>Install LastPass for Safari</title>
+<script>
+  function nowclose() {
+    var g_close=true; // do not change this as we replace based on it
+    //if(g_close)
+    //  self.close();
+
+    var go_to_url=''; // Do not change this as we replace based on it
+    if(go_to_url.length) 
+      document.location.href=go_to_url;
+    
+    document.body.innerHTML = 'Please close this window';
+    setTimeout('nowclose();',3000);
+  }
+  function installit() {
+    document.location.href="lastpass.safariextz";
+    setTimeout('nowclose();',3000);
+  }
+</script>
+</head>
+<body id='bdy'>
+<a href="lastpass.safariextz" onclick='installit();return false;'>Click here to install LastPass for Safari</a>
+</body>
+</html>

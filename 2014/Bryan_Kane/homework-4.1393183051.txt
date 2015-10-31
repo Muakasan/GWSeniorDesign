@@ -1,0 +1,47 @@
+== Homework 4 ==
+EasyRead, a web-based utility for educators, assists with the simplification of textual content. Users select a target reading level and upload content, which EasyRead then analyzes to identify difficult-to-read sections and produce suggestions for simplifying the material. After making any necessary modifications, EasyRead allows users to submit their changes into the “EasyRead library,” a collection of pre-simplified content, categorized by grade level, and available for immediate use. Upon submission, EasyRead also utilizes advanced pattern-detection algorithms to identify common techniques in simplification, which further trains the EasyRead system.
+
+==== Users: ====
+
+Elementary school teachers: These users have students who are early readers, and year after year find themselves using the same anthologies and articles to read with their students. They find their students are getting bored with the antiquated materials, and wish there was a way that they could both discuss current news and events with their class, as well as read appropriate materials at a low enough reading level. They see their only option as finding news articles and either rewriting them completely, or making many modifications in order to increase the readibility of the article.
+
+Adult literacy centers: These users are very similar to elementary school teachers in that they need to find more appropriate materials to help their students read. However, their students are in a unique position where they'll dislike reading such basic materials, and actually care about current events, but have trouble comprehending the news articles found in daily newspapers. These adult students also have wide-ranging interests, and would be much more motivated to practice reading if they were more engaged with the material.
+
+==== Workflow: ====
+
+**NEW ARTICLE:**
+  * User logs in to EasyRead system (or creates an account if necessary)
+  * User pastes in a link to a news article that they found and want to simplify OR User pastes in text content of news article
+  * User selects desired reading level
+  * EasyRead system processes text, user waits on loading screen
+  * User reads through suggestions and overlays that EasyRead shows on the screen.
+    * For each suggestion / modification, user decides whether to accept the modification, make a different modification, or to leave the original text.
+    * User then scans through article, and decides if any additional modifications are necessary / makes appropriate modifications
+  * User saves the article to the EasyRead library
+  * User prints / downloads the article
+
+**EXISTING ARTICLE:**
+  * User visits EasyRead and clicks on the EasyRead library
+  * User selects their desired reading level / reading level range
+  * User browses through articles / stories, viewing previews, and selecting the desired article
+  * User has the option to save or print the simplified article.
+
+==== Core Requirements: ===
+  * EasyRead must have the capability to identify of difficult words based on a given reading level.
+  * Through a large mapping of 10,000s of words to difficulty levels, specific words will be able to be targetted for replacement.
+  * Additionally, the system must be able to identify phrases that are worded in a difficult manner.
+  * Suggestions should be presented to the user that could rephrase a sentence in an easier to understand manner.
+  * There should also be context associated with these suggestions, explaining what makes the current phrasing difficult to read.
+  * After a user submits their changes to a piece of text, the EasyRead system should analyze the changes that are made.
+  * Through a comparison of the original text to the modified text, the system will determine which areas were modified, and the types of changes that were made.
+  * For example, if a sentence included 3 adjectives of medium difficulty, and was altered to include only 2 easy-to-understand adjectives, that pattern should be stored. If it is a commonly seen pattern across multiple pieces of text, it should start to be suggested for new text that comes in. 
+
+==== List of Functions: ====
+  * Perhaps the most important aspect of EasyRead will be the crowd-sourced repository of simplified content.
+  * Not only will this make it easier for users to find pre-simplified content for use, but will provide a vast range of data available for analysis.
+  * Through supervised machine learning, given the simplified content (along with its original, unsimplified version), EasyRead will be able to analyze the specific changes that are made in sentence structure, word choice, and style, which will allow for greater simplification suggestions for future users.
+  * In order to generate the repository of simplified content, EasyRead must provide an easy-to-use interface for generating the simplified content.
+  * The web-based interface will allow users to upload text content to be analyzed.
+  * Problem-areas should be identified on the screen, along with an explanation of what makes the text difficult, and possible ways to simplify the content.
+  * Of a much lower priority is the integration of the service with third-party sources, such as CNN, Reuters, Google News, popular blogs, and other sources of relevant, but sometimes difficult-to-read, content.
+  * These sources will be consumed through public third-party APIs.

@@ -1,0 +1,27 @@
+====== Luther B Smith IV: Quadrotor User Inventory ChecKer (QUICK) ======
+{{ :luke:me2.jpg?200|}}
+
+**QUICK** is quadrotor helicopter based drone used for inventorying in warehouses.  The device recognizes, reads, and records information found on labels and operates autonomously to help marginalize human error. 
+
+**Bio:** Luther (Luke) Smith an aspiring Computer Science B.S. major and Psychology minor at the George Washington University.  He is focusing in Computer Security, but has interest in machine learning and Cognitive Psychology,
+
+
+**Project Video:**
+<HTML>
+<iframe width="560" height="315" src="//www.youtube.com/embed/3YR_WmMfAuc" frameborder="0" allowfullscreen></iframe>
+</HTML>
+
+{{:luke:posterfinal.png?300|{{:luke:posterfinal.png|{{:luke:posterfinal.png?300|}}}}}}
+
+**Documentation:**
+  * {{:luke:finaldemolist.docx|}}
+  * {{:luke:senior_design_writing1.pdf|  }}
+  * {{:luke:senior_design_writing1_1_.docx|}}
+  * {{:luke:senior_design_writing2.pdf|}}
+  * {{:luke:senior_design_writing2.docx|}}
+  * {{:luke:senior_design_writing3.docx|}}
+  * {{:luke:senior_design_writing3.pdf|}}
+  * {{:luke:senior_design_writing4.docx|}}
+  * {{:luke:senior_design_writing4.pdf|}}
+  * {{:luke:lukeiv91_hw6.docx|}}
+  * {{:luke:lukeiv91_hw6.pdf|}}
